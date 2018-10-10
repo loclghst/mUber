@@ -1,0 +1,16 @@
+{
+  "name": "muber",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Manish Kumar Sharma",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "mocha": "^5.2.0",
+    "mongoose": "^5.3.2"
+  }
+}
