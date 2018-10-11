@@ -30,6 +30,26 @@ describe('driver controller test', ()=>{
 		})
 		
 	});
+
+	it('handles a PUT request to /api/drivers/:id - Edits the driver with the passed id', (done) =>{
+		//to make this test, we will create a driver --> save it to db --> pull it back from db -->
+		//--> make a PUT request to make some changes to it --> then assert that the changes were successfully made
+		const newDriver = new Driver({email: 't@t.com', driving: false});
+		newDriver.save()
+				 .then(() =>{
+				 	request(app)
+				 		.put(`/api/driver/${newDriver._id}`)
+				 		.send({driving: true})
+				 		.end(() =>{
+				 			Driver.findOne({email: 't@t.com'})
+				 				  .then((driver) =>{
+				 				  	assert(driver.driving === true);
+				 				  	done();
+				 				  });
+				 		});
+				 });
+
+	});
 });
 
 
