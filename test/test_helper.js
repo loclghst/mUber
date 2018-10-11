@@ -27,6 +27,10 @@ beforeEach(done =>{
 	//store Driver collection out of mongo in a variable
 	const {drivers} = mongoose.connection.collections;
 	drivers.drop()
+	//the following then() is to ensure that the geometry.coordinates index remain when the query is executed
+	//this is essential for the geoNear test to return correct results. The ensureIndex immediately recreates the index
+	//after the drivers collection is dropped.
+		   .then(() => drivers.ensureIndex({'geometry.coordinates' : '2dsphere'}))
 		   .then(() => done())
 		   .catch(() => done());
 	//the reason we put a catch statement here is because the first time test runs there will be no driver 
