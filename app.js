@@ -18,4 +18,16 @@ if(process.env.NODE_ENV !== 'test')
 app.use(bodyParser.json());
 routes(app);
 
+//middle ware to handle the error in the response in case email is not provided when creating
+//a new driver. The error we are taking about originates from the POST request to create a new driver
+//For driver we defined email is required. So if we dont pass a email with the POST request , an error will be 
+//thrown. The following middleware handles this error.
+
+app.use((err,req,res,next) =>{
+	//send an error message as response and set proper status code 
+	console.log(err);
+	res.status(422).send({error: err.message});
+});
+
+
 module.exports = app;
