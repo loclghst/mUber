@@ -12,4 +12,7 @@ module.exports = (app) =>{
 	
 	//Route for deleting a particular driver
 	app.delete('/api/driver/:id', driver_controller.delete);
+
+	//Route to get all the drivers near us
+	app.get('/api/driver', driver_controller.index);
 }
