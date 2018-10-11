@@ -109,6 +109,15 @@ describe('driver controller test', ()=>{
 			   });
 
 	});
+
+	//The above test doesnt give the required results.
+	//when we inspect the db by RoboMongo we will see that for the muber_test db , there is no index for 
+	//geometry coordinates which is essential to perform any geoNear queries.
+
+	// This is because before any test is executed we drop the colelction and with it we drop the index of geometry.coordinates
+	// this si because the indexes are created only one time at the beginning when the schema is created
+	// to resolve this error we have to make sure that the index remains when we perform the test.
+	 
 });
 
 
