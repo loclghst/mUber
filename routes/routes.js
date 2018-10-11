@@ -8,4 +8,8 @@ module.exports = (app) =>{
 
 	//Route for editing a driver
 	app.put('/api/driver/:id', driver_controller.edit);
+
+	
+	//Route for deleting a particular driver
+	app.delete('/api/driver/:id', driver_controller.delete);
 }
