@@ -83,6 +83,32 @@ describe('driver controller test', ()=>{
 				 		});
 				 });
 	});
+	//test for the geoNear query
+
+	it('handles GET request to /api/driver, finds drivers near me', (done) =>{
+		//we only want drivers that are within the maxDistance, So will will create two drivers at very different
+		//locations and see which gets returned. This is how we will make the assertion
+
+		const delhiDriver = new Driver ({
+			email: 'delhi@test.com',
+			geometry: {type:'Point', coordinates: [-122.475, 47.614]}
+		});
+		const bangaloreDriver = new Driver({
+			email: 'bangalore@test.com',
+			geometry: {type: 'Point', coordinates: [-80.253,25.791 ]}
+		});
+
+		Promise.all([delhiDriver.save(), bangaloreDriver.save()])
+			   .then(() => {
+			   		request(app)
+			   			.get('/api/driver?lng=-80&lat=25')
+			   			.end((err,response) => {
+			   				console.log(response);
+			   				done();
+			   			});
+			   });
+
+	});
 });
 
 
