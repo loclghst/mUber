@@ -23,5 +23,14 @@ module.exports = {
 			  .then(() => Driver.findById({_id : driverId}))
 			  .then((driver) => res.send(driver))
 			  .catch(next); 
+	},
+
+	delete(req,res,next){
+		const driverId = req.params.id;
+
+		Driver.findByIdAndRemove({_id: driverId})
+		//findByIdAndRemove() send back the driver that is removed
+			  .then((driver) => res.status(204).send(driver)) //Status of 204 means the record was successfully deleted
+			  .catch(next);
 	}
 }
