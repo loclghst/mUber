@@ -17,6 +17,9 @@ module.exports = {
 		//will get the lng and lat from the query string as follows
 
 		const {lng, lat} = req.query;
+		//Again when we pull data out of a query string, although we may expect them to be numbers, but they are extracted as strings
+		//To resolve this error we will use parseFloat() when passing it to coordinates below
+
 
 
 
@@ -26,7 +29,7 @@ module.exports = {
 		//Second parameter is Options
 		Driver.geoNear(
 			//first parameter- geoJSON object
-			{type:'Point',coordinates:[lng,lat]},
+			{type:'Point',coordinates:[parseFloat(lng),parseFloat(lat)]},
 			//second parameter - Options
 			//spherical: true means we are telling mongo that the query
 			//is made on a spherical object
@@ -35,7 +38,7 @@ module.exports = {
 		)
 		//this returns a promise so we will cahin a .then()
 		.then((drivers) => res.send(drivers))
-		.catch(done);
+		.catch(next);
 	},
 
 	create(req,res,next){
