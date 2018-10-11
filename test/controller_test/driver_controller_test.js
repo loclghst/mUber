@@ -50,6 +50,39 @@ describe('driver controller test', ()=>{
 				 });
 
 	});
+
+	it('handles a delete request to /api/driver/:id - Deletes a particular driver', (done) =>{
+		const newDriver = new Driver({email: 'a@b.com', driving:false});
+		// newDriver.save()
+		// 		 .then(() =>{
+		// 		 	Driver.count()
+		// 		 		  .then(count =>{
+		// 		 		  	request(app)
+		// 		 		  		.delete(`/api/driver/${newDriver._id}`)
+		// 		 		  		.end(() => {
+		// 		 		  			Driver.count()
+		// 		 		  				  .then(newCount =>{
+		// 		 		  				  	assert(newCount === count -1);
+		// 		 		  				  	done();
+		// 		 		  				  });
+		// 		 		  		});
+		// 		 		  });
+		// 		 });
+		// Alternate approach
+
+		newDriver.save()
+				 .then(() =>{
+				 	request(app)
+				 		.delete(`/api/driver/${newDriver._id}`)
+				 		.end(() =>{
+				 			Driver.findOne({email: 'a@b.com'})
+				 				  .then(driver =>{
+				 				  	assert(driver === null);
+				 				  	done();
+				 				  });
+				 		});
+				 });
+	});
 });
 
 
